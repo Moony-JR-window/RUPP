@@ -34,7 +34,7 @@ const Profile = () => {
                         <span className='bg-blue-800 p-2 flex justify-center items-center rounded-full ' >
                             <IoSettings />
                         </span>
-                        <label className='p-3  '>Setting</label>
+                        <label className='p-3  '>Settings</label>
                     </div>
                     <div className='flex justify-start items-center text-white  '>
                         <span className='bg-blue-800 p-2 flex justify-center items-center rounded-full ' >
