@@ -1,5 +1,3 @@
-
-'use client'
 import React, { useState } from 'react'
 import ToggleMenu from '../menu/ToggleMenu'
 import { toggle } from '../interface/Toggle'

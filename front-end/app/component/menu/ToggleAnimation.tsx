@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
 import { toggle } from '../interface/Toggle'
 
 const ToggleAnimation:React.FC<toggle> = ({toggle,setToggle}) => {

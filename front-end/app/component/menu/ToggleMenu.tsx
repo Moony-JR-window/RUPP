@@ -1,4 +1,3 @@
-'use'
 import React from 'react'
 import ToggleAnimation from './ToggleAnimation'
 import { toggle } from '../interface/Toggle'
