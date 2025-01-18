@@ -1,3 +1,4 @@
+import { redirect } from "next/dist/server/api-utils";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -11,6 +12,10 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+      },
+      container: {
+        padding: '1rem',
+        center: true,
       },
     },
   },
