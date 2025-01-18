@@ -5,11 +5,15 @@ import { FaLock } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import Image from 'next/image';
 import profile from "/app/image/profile.jpg"
+import TimeDisplay from '../time/Time';
 
 const Profile = () => {
     return (
         <div className=' w-[25%] h-screen flex flex-col justify-center items-center bg-blue-400 '>
-            <div className=' flex flex-col gap-10 justify-center items-start h-full  '>
+            <div className=' flex flex-col gap-10 justify-start items-start h-full  '>
+                <div className=' container pl-4 pt-5 text-2xl '>
+                    {<TimeDisplay />}
+                </div>
                 <div className='p-10 flex flex-col gap-5  '>
                     <div className='w-full h-full '>
                         <Image className=' rounded-full ' src={profile} alt='Profile Picture' width={100} height={50} />
