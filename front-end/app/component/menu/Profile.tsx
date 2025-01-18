@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
 import { IoHomeSharp } from "react-icons/io5";
 import { IoSettings } from "react-icons/io5";
 import { FaLock } from "react-icons/fa";
@@ -6,10 +7,12 @@ import Image from 'next/image';
 import profile from "/app/image/profile.jpg"
 import TimeDisplay from '../time/Time';
 import Logout from './Logout';
+import { toggle } from '../interface/Toggle';
 
-const Profile = () => {
+
+const Profile:React.FC<toggle> = ({toggle,setToggle}) => {
     return (
-        <div className=' w-[25%] h-screen flex flex-col justify-center items-center bg-blue-400 '>
+        <div className={` transition-all ${toggle?" w-[25%] ":"w-0 delay-[1000ms]  " }  h-screen flex flex-col justify-center items-center bg-blue-400 `}>
             <div className=' flex flex-col gap-10 justify-start items-start h-full  '>
                 <div className=' font-serif container pl-4 pt-5 text-2xl '>
                     {<TimeDisplay />}

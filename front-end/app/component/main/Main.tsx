@@ -1,9 +1,15 @@
-import React from 'react'
 
-const Main = () => {
+'use client'
+import React, { useState } from 'react'
+import ToggleMenu from '../menu/ToggleMenu'
+import { toggle } from '../interface/Toggle'
+
+const Main:React.FC<toggle> = ({toggle,setToggle}) => {
     return (
-        <div className='w-full h-screen rounded-s-3xl justify-center items-center flex bg-red-400 ml-[-50px] '>
+        <div className={` w-full h-screen justify-start items-center flex flex-col bg-red-400 ${toggle? " ml-[-50px]  rounded-s-3xl " : " delay-[1000ms] "} `}>
+            <ToggleMenu toggle={toggle} setToggle={setToggle}  />
             Main
+
         </div>
     )
 }
