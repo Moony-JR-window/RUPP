@@ -12,6 +12,7 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        first:'#e2e8f0'
       },
       container: {
         padding: '1rem',

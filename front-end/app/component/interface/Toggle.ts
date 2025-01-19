@@ -1,4 +1,5 @@
 export interface toggle{
     toggle: boolean;
-    setToggle: (value: boolean) => void;
+    setToggle?: (value: boolean) => void;
+    HandleClick?:()=>void;
 }
