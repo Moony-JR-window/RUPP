@@ -12,7 +12,7 @@ import { toggle } from '../interface/Toggle';
 
 
 const Profile: React.FC<toggle> = ({ toggle, setToggle }) => {
-    const [isVisible, setIsVisible] = useState(toggle);
+    const [isVisible, setIsVisible] = useState<boolean>(toggle);
 
     useEffect(() => {
         if (toggle) {
@@ -33,7 +33,7 @@ const Profile: React.FC<toggle> = ({ toggle, setToggle }) => {
             <div className='  w-full flex flex-col gap-10 justify-start items-center h-full   '>
                 <div className=' font-serif container pl-16 pt-5 text-2xl '>
                     {<TimeDisplay />}
-                    <div className={` transition-all absolute top-0 ${toggle ? "left-[20%] " : 'left-[10%] delay-[1000ms] '} `}>
+                    <div className={` transition-all absolute top-0 ${toggle ? "left-[20%] " : 'left-[2%] delay-[1000ms] '} `}>
                         <ToggleMenu toggle={toggle} setToggle={setToggle} HandleClick={handleToggle} />
                     </div>
                 </div>
@@ -72,12 +72,7 @@ const Profile: React.FC<toggle> = ({ toggle, setToggle }) => {
                 </div>
 
             </div>
-            <div
-                className={`${toggle
-                    ? 'opacity-100 scale-100'
-                    : 'opacity-0 scale-0 delay-1000'
-                    } transition-all duration-1000 bg-first ${!isVisible ? 'hidden' : ' '} w-[20%] rounded-s-3xl h-full`}
-            >
+            <div className={` transition-all duration-1000 bg-first  ${!isVisible ? ' hidden ' : ' '} w-[20%] ml-[-2px] rounded-s-3xl h-full`} >
             </div>
 
         </div>
