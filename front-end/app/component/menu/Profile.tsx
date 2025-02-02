@@ -9,6 +9,7 @@ import TimeDisplay from '../time/Time';
 import Logout from './Logout';
 import ToggleMenu from './ToggleMenu';
 import { toggle } from '../interface/Toggle';
+import Link from 'next/link';
 
 
 const Profile: React.FC<toggle> = ({ toggle, setToggle }) => {
@@ -46,12 +47,16 @@ const Profile: React.FC<toggle> = ({ toggle, setToggle }) => {
                 </div>
                 <div className=' p-10 pt-10 gap-5 flex flex-col font-extrabold items-start  '>
                     {/* <span className='flex justify-start items-center '><label className='p-3 text-white  '></label></span> */}
-                    <div className=' flex justify-start items-center w-full text-white  '>
-                        <span className='bg-blue-800 p-2 flex justify-center items-center rounded-full ' >
-                            <IoHomeSharp />
-                        </span>
-                        <label className='p-3  '>Home</label>
-                    </div>
+
+                    <Link href={"./"} >
+                        <div className=' cursor-pointer  flex justify-start items-center w-full text-white  '>
+                            <span className='bg-blue-800 p-2 flex justify-center items-center rounded-full ' >
+                                <IoHomeSharp />
+                            </span>
+                            <label className='p-3 cursor-pointer '>Home</label>
+
+                        </div>
+                    </Link>
 
                     <div className='flex justify-start items-center text-white  '>
                         <span className='bg-blue-800 p-2 flex justify-center items-center rounded-full ' >
