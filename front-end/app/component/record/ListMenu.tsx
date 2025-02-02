@@ -1,43 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, } from "@dnd-kit/core";
-import { SortableContext, verticalListSortingStrategy, arrayMove, useSortable, } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+import { SortableContext, verticalListSortingStrategy, arrayMove, } from "@dnd-kit/sortable";
+import SortableItem from "../field-Item/SortableItem";
 
-interface MenuItem {
+export interface MenuItem {
   id: string;
   name: string;
   href: string;
 }
 
-const SortableItem = ({ item,noLink }: { item: MenuItem ; noLink:boolean}) => {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: item.id });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  };
-
-  return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-      className="w-80 h-44"
-    >{noLink ? <Link href={item.href}>
-      <div className="w-80 h-44 bg-blue-200 hover:scale-105 transition-all rounded-md flex items-center justify-center">
-        {item.name}
-      </div>
-    </Link> : <div className="w-80 h-44 bg-slate-300 hover:scale-105 transition-all rounded-md flex items-center justify-center">
-      {item.name}
-    </div>
-      }
-    </div>
-  );
-};
 
 const ListMenu: React.FC = () => {
   const [items, setItems] = useState<MenuItem[]>([]);
@@ -80,7 +52,7 @@ const ListMenu: React.FC = () => {
     }
   };
 
-  return (
+  return ( 
     <DndContext
       sensors={sensors}
       collisionDetection={closestCenter}
@@ -91,7 +63,7 @@ const ListMenu: React.FC = () => {
           {items.map((item) => (
             <SortableItem key={item.id} item={item} noLink={noLink} />
           ))}
-          <button
+          <button 
             className=" top-2 p-2 h-10 right-2 bg-blue-400 text-white"
           >Edit</button>
         </div>
