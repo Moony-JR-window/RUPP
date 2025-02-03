@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, } from "@dnd-kit/core";
-import { SortableContext, verticalListSortingStrategy, arrayMove, } from "@dnd-kit/sortable";
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, DragStartEvent, DragEndEvent } from "@dnd-kit/core";
+import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
 import SortableItem from "../field-Item/SortableItem";
 
 export interface MenuItem {
@@ -10,10 +10,9 @@ export interface MenuItem {
   href: string;
 }
 
-
 const ListMenu: React.FC = () => {
   const [items, setItems] = useState<MenuItem[]>([]);
-  const [noLink, setNolink] = useState<boolean>(true)
+  const [noLink, setNoLink] = useState<boolean>(true);
 
   // Load localStorage data after mounting
   useEffect(() => {
@@ -39,23 +38,25 @@ const ListMenu: React.FC = () => {
 
   const sensors = useSensors(useSensor(PointerSensor));
 
-  const handleDragEnd = (event: any) => {
-    if(event){
-      setNolink(false);
-    }
-    const { active, over } = event;
-    if (active.id !== over.id) {
-      const oldIndex = items.findIndex((item) => item.id === active.id);
-      const newIndex = items.findIndex((item) => item.id === over.id);
-      setItems(arrayMove(items, oldIndex, newIndex));
-    setNolink(true);
-    }
+  const handleDragStart = (_event: DragStartEvent) => {
+    setNoLink(false); // Disable links when dragging starts
   };
 
-  return ( 
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (active.id !== over?.id) {
+      const oldIndex = items.findIndex((item) => item.id === active.id);
+      const newIndex = items.findIndex((item) => item.id === over?.id);
+      setItems(arrayMove(items, oldIndex, newIndex));
+    }
+    setNoLink(true); // Enable links after dragging ends
+  };
+
+  return (
     <DndContext
       sensors={sensors}
       collisionDetection={closestCenter}
+      onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
       <SortableContext items={items} strategy={verticalListSortingStrategy}>
@@ -63,9 +64,6 @@ const ListMenu: React.FC = () => {
           {items.map((item) => (
             <SortableItem key={item.id} item={item} noLink={noLink} />
           ))}
-          <button 
-            className=" top-2 p-2 h-10 right-2 bg-blue-400 text-white"
-          >Edit</button>
         </div>
       </SortableContext>
     </DndContext>
