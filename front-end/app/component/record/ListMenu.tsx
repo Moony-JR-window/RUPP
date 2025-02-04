@@ -1,6 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, DragStartEvent, DragEndEvent } from "@dnd-kit/core";
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragStartEvent,
+  DragMoveEvent,
+  DragEndEvent,
+  DragCancelEvent,
+} from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
 import SortableItem from "../field-Item/SortableItem";
 
@@ -13,8 +23,8 @@ export interface MenuItem {
 const ListMenu: React.FC = () => {
   const [items, setItems] = useState<MenuItem[]>([]);
   const [noLink, setNoLink] = useState<boolean>(true);
+  const [isDragging, setIsDragging] = useState<boolean>(false); // Track movement
 
-  // Load localStorage data after mounting
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedItems = localStorage.getItem("menuItems");
@@ -39,17 +49,28 @@ const ListMenu: React.FC = () => {
   const sensors = useSensors(useSensor(PointerSensor));
 
   const handleDragStart = (_event: DragStartEvent) => {
-    setNoLink(false); // Disable links when dragging starts
+    setIsDragging(false); // Reset movement tracker on start
+  };
+
+  const handleDragMove = (_event: DragMoveEvent) => {
+    setIsDragging(true); // Set movement tracker when dragging
+    setNoLink(false); // Disable links while moving
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-    if (active.id !== over?.id) {
-      const oldIndex = items.findIndex((item) => item.id === active.id);
-      const newIndex = items.findIndex((item) => item.id === over?.id);
-      setItems(arrayMove(items, oldIndex, newIndex));
+    if (isDragging) {
+      const { active, over } = event;
+      if (active.id !== over?.id) {
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over?.id);
+        setItems(arrayMove(items, oldIndex, newIndex));
+      }
     }
-    setNoLink(true); // Enable links after dragging ends
+    setNoLink(true); // Enable links after movement or drag cancel
+  };
+
+  const handleDragCancel = (_event: DragCancelEvent) => {
+    setNoLink(true); // Reset link state if dragging is canceled
   };
 
   return (
@@ -57,13 +78,18 @@ const ListMenu: React.FC = () => {
       sensors={sensors}
       collisionDetection={closestCenter}
       onDragStart={handleDragStart}
+      onDragMove={handleDragMove}
       onDragEnd={handleDragEnd}
+      onDragCancel={handleDragCancel}
     >
       <SortableContext items={items} strategy={verticalListSortingStrategy}>
         <div className="w-full bg-red-200 h-full flex flex-wrap gap-5 justify-center pt-5">
           {items.map((item) => (
             <SortableItem key={item.id} item={item} noLink={noLink} />
           ))}
+          <button className="top-2 p-2 h-10 right-2 bg-blue-400 text-white">
+            Edit
+          </button>
         </div>
       </SortableContext>
     </DndContext>
