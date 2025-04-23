@@ -1,18 +1,17 @@
-import React from 'react'
-import ToggleAnimation from './ToggleAnimation'
-import { toggle } from '../interface/Toggle'
+import React from 'react';
+import ToggleAnimation from './ToggleAnimation';
+import { toggle } from '../interface/Toggle';
 
+const ToggleMenu: React.FC<toggle> = ({ toggle, setToggle }) => (
+  <header className="flex items-center gap-6 p-5 pt-10">
+    {/* 1️⃣  hamburger now on the left */}
+    <ToggleAnimation toggle={toggle} setToggle={setToggle} />
 
-const ToggleMenu:React.FC<toggle> = ({toggle,setToggle}) => {
-    
-    return (
-        <div className='flex p-5 pt-10 w-full justify-start items-start '>
-            <div className=' pl-5 w-2/12 mt-[-10px] '>
-                <h1 className='text-4xl font-semibold '>Dentist management <br/> system </h1>
-            </div>
-            <ToggleAnimation toggle={toggle} setToggle={setToggle}  />
-        </div>
-    )
-}
+    {/* 2️⃣  title follows */}
+    <h1 className="text-4xl font-semibold leading-tight">
+      Dentist&nbsp;management<br />system
+    </h1>
+  </header>
+);
 
-export default ToggleMenu
+export default ToggleMenu;

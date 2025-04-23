@@ -8,3 +8,9 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+/* globals.css */
+html,
+body {
+  /* stop accidental side-scroll or drag-pan */
+  overflow-x: hidden;
+}

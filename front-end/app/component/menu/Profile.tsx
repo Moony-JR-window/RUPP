@@ -1,57 +1,69 @@
-
-import React from 'react'
-import { IoHomeSharp } from "react-icons/io5";
-import { IoSettings } from "react-icons/io5";
-import { FaLock } from "react-icons/fa";
+import React from 'react';
+import { IoHomeSharp, IoSettings } from 'react-icons/io5';
+import { FaLock } from 'react-icons/fa';
 import Image from 'next/image';
-import profile from "/app/image/profile.jpg"
+import profile from '/app/image/profile.jpg';
 import TimeDisplay from '../time/Time';
 import Logout from './Logout';
 import { toggle } from '../interface/Toggle';
 
-
-const Profile:React.FC<toggle> = ({toggle,setToggle}) => {
-    return (
-        <div className={` transition-all ${toggle?" w-[25%] ":"w-0 delay-[1000ms]  " }  h-screen flex flex-col justify-center items-center bg-blue-400 `}>
-            <div className=' flex flex-col gap-10 justify-start items-start h-full  '>
-                <div className=' font-serif container pl-4 pt-5 text-2xl '>
-                    {<TimeDisplay />}
-                </div>
-                <div className='p-10 flex flex-col gap-5  '>
-                    <div className='w-full h-full '>
-                        <Image className=' rounded-full ' src={profile} alt='Profile Picture' width={100} height={50} />
-                    </div>
-
-                    <h1 className=' text-white '>None Name</h1>
-                </div>
-                <div className=' container w-full gap-5 flex flex-col font-extrabold items-start  '>
-                    <span className='flex justify-start items-center '><label className='p-3 text-white  '></label></span>
-                    <div className='flex justify-start items-center text-white  '>
-                        <span className='bg-blue-800 p-2 flex justify-center items-center rounded-full ' >
-                            <IoHomeSharp />
-                        </span>
-                        <label className='p-3  '>Home</label>
-                    </div>
-
-                    <div className='flex justify-start items-center text-white  '>
-                        <span className='bg-blue-800 p-2 flex justify-center items-center rounded-full ' >
-                            <IoSettings />
-                        </span>
-                        <label className='p-3  '>Settings</label>
-                    </div>
-                    <div className='flex justify-start items-center text-white  '>
-                        <span className='bg-blue-800 p-2 flex justify-center items-center rounded-full ' >
-                            <FaLock />
-                        </span>
-                        <label className='p-3 '>Security</label>
-                    </div>
-                </div>
-
-                <Logout />
-            </div>
-
+const Profile: React.FC<toggle> = ({ toggle }) => (
+  <aside
+    className={`
+      fixed top-0 left-0 z-30 h-screen w-1/4 min-w-[16rem] bg-blue-400
+      border-r border-white/10 shadow-[4px_0_8px_-2px_rgba(0,0,0,0.25)]
+      transform transition-transform duration-500 ease-in-out
+      ${toggle ? 'translate-x-0' : '-translate-x-full'}
+    `}
+  >
+    <div className="flex h-full w-full flex-col">
+      {/* header */}
+      <div className="flex flex-col items-center pt-6">
+        <div className="font-serif text-3xl">
+          <TimeDisplay />
         </div>
-    )
-}
 
-export default Profile
+        <div className="p-4">
+          <Image
+            className="rounded-full"
+            src={profile}
+            alt="Profile Picture"
+            width={140}
+            height={140}
+          />
+        </div>
+
+        <h1 className="text-xl font-semibold text-white">None Name</h1>
+      </div>
+
+      {/* menu */}
+      <nav className="mt-12 flex flex-col items-start gap-6 pl-6 font-bold text-white">
+        <MenuItem icon={<IoHomeSharp size={22} />} label="Home" />
+        <MenuItem icon={<IoSettings size={22} />} label="Settings" />
+        <MenuItem icon={<FaLock size={20} />} label="Security" />
+      </nav>
+
+      {/* logout */}
+      <div className="mt-auto mb-8 px-6">
+        <Logout />
+      </div>
+    </div>
+  </aside>
+);
+
+const MenuItem = ({
+  icon,
+  label,
+}: {
+  icon: React.ReactNode;
+  label: string;
+}) => (
+  <div className="flex cursor-pointer items-center gap-4 hover:opacity-80">
+    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-800">
+      {icon}
+    </span>
+    <span className="text-lg">{label}</span>
+  </div>
+);
+
+export default Profile;

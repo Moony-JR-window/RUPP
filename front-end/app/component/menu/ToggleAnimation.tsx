@@ -1,18 +1,37 @@
-'use client'
-import React from 'react'
-import { toggle } from '../interface/Toggle'
+'use client';
+import React from 'react';
+import { toggle } from '../interface/Toggle';
 
-const ToggleAnimation:React.FC<toggle> = ({toggle,setToggle}) => {
-    const handleClick=()=>{
-        setToggle(!toggle)
-    }
-  return (
-    <div onClick={handleClick} className='flex flex-col gap-1 transition-all cursor-pointer '>
-        <div className={` transition-all h-1 bg-gray-500 ${toggle? "  rotate-45 w-10  " :"block w-8 " } `}></div>
-        <div className={` transition-all h-1 bg-gray-500 ${toggle? " w-0 absolute " :" block w-8 " } `}></div>
-        <div className={` transition-all h-1 bg-gray-500 ${toggle? " -rotate-45 w-10  " :"block w-8 " }  `}></div>
-    </div>
-  )
-}
+const ToggleAnimation: React.FC<toggle> = ({ toggle, setToggle }) => (
+  <button
+    onClick={() => setToggle(!toggle)}
+    className="relative flex h-6 w-8 flex-col items-center justify-center gap-1.5"
+  >
+    <Bar isTop active={toggle} />
+    <Bar isMiddle active={toggle} />
+    <Bar isBottom active={toggle} />
+  </button>
+);
 
-export default ToggleAnimation
+const Bar = ({
+  isTop,
+  isMiddle,
+  isBottom,
+  active,
+}: {
+  isTop?: boolean;
+  isMiddle?: boolean;
+  isBottom?: boolean;
+  active: boolean;
+}) => (
+  <span
+    className={`
+      block h-1 w-full bg-gray-700 transition-all duration-300 ease-in-out
+      ${active && isTop ? 'translate-y-1 rotate-45' : ''}
+      ${active && isMiddle ? 'opacity-0' : ''}
+      ${active && isBottom ? '-translate-y-1 -rotate-45' : ''}
+    `}
+  />
+);
+
+export default ToggleAnimation;
