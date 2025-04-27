@@ -1,16 +1,13 @@
-'use client'
-import React, { useState } from 'react'
-import Profile from './component/menu/Profile'
-import Main from './component/main/Main'
 
-const page:React.FC = () => {
-  const [toggle,setToggle] = useState<boolean>(true)
-  return (
-    <div className='flex '>
-      <Profile toggle={toggle} setToggle={setToggle} />
-      <Main toggle={toggle} setToggle={setToggle}   />
-    </div>
-  )
-}
+import React from 'react';
+import Main from './component/main/Main';
 
-export default page
+const Page: React.FC= () => {
+    return (
+        <div className="flex w-full h-full">
+            <Main />
+        </div>
+    );
+};
+
+export default Page;

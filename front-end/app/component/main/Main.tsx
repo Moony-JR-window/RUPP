@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
-import ToggleMenu from '../menu/ToggleMenu'
-import { toggle } from '../interface/Toggle'
+import React from 'react';
+import Record from '../record/Record';
+import ListMenu from '../record/ListMenu';
 
-const Main:React.FC<toggle> = ({toggle,setToggle}) => {
+const Main: React.FC = () => {
+
     return (
-        <div className={` w-full h-screen justify-start items-center flex flex-col bg-gray-200 ${toggle? " ml-[-2%]  rounded-s-3xl " : " delay-[1000ms] "} `}>
-            <ToggleMenu toggle={toggle} setToggle={setToggle}  />
-            Main
-
+        <div
+            className={`w-full  h-screen flex flex-col 
+            items-center justify-start bg-first `}
+        >
+            <Record/>
+            <ListMenu/>
         </div>
-    )
-}
+    );
+};
 
-export default Main
+export default Main;
